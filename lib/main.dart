@@ -89,7 +89,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Flutter Registration')),
+      appBar: AppBar(title: Text('Flutter Registration Form')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -98,39 +98,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  labelText: 'Name',
-                  filled: true,
-                  fillColor: Colors.grey[100],
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                ),
+                decoration: InputDecoration(labelText: 'Name'),
                 validator: _validateName,
               ),
               SizedBox(height: 10),
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.email),
-                  labelText: 'Email',
-                  filled: true,
-                  fillColor: Colors.grey[100],
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                ),
+                decoration: InputDecoration(labelText: 'Email'),
                 validator: _validateEmail,
               ),
               SizedBox(height: 10),
               TextFormField(
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
-                  filled: true,
-                  fillColor: Colors.grey[100],
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12)),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscurePassword
@@ -150,21 +131,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
               SizedBox(height: 10),
               TextFormField(
                 controller: _confirmPasswordController,
-                decoration: InputDecoration(labelText: 'Confirm Password'),
-                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Confirm Password',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureConfirmPassword = !_obscureConfirmPassword;
+                      });
+                    },
+                  ),
+                ),
+                obscureText: _obscureConfirmPassword,
                 validator: _validateConfirmPassword,
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                  textStyle:
-                      TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
                 child: Text('Register'),
               ),
             ],
